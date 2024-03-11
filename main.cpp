@@ -16,7 +16,7 @@ int main() {
     while (n > 0) {
         int boxes_to_pick;
 
-        cout << "Enter the number of boxes that the car will pick up: ";
+        cout << "Enter the number of boxes that the car will pick up (max " << n << "): ";
         cin >> boxes_to_pick;
         
 
