@@ -3,19 +3,32 @@ using namespace std;
 
 int main()
 {
-	const int places = 50;
-	int user_input;
+	const int SIZE = 10;
+	int arr[SIZE];
+
+	for (int i = 0; i < SIZE; i++) {
+
+		cout << "Enter number: ";
+		cin >> arr[i];
+
+	}
+
+	int max_n = arr[0];
+	int min_n = arr[0];
 
 
-	do {
-		cout << "Enter how many passagers there will be: ";
-		cin >> user_input;
-	} while (user_input < 0);
+	for (int i = 0; i < SIZE; i++) {
 
-	int rest = user_input % places;
-	int free_space = places - rest;
+		if (max_n < arr[i]) {
+			max_n = arr[i];
+		}
+		if (min_n > arr[i]) {
+			min_n = arr[i];
+		}
+	}
 
-	cout << free_space << endl;
+	cout << "\nmax number: " << max_n << "\nmin number: " << min_n << endl;
+
 
 	return 0;
 }
