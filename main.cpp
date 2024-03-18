@@ -1,30 +1,21 @@
 #include <iostream>
-#include <ctime>
 using namespace std;
 
-int main() {
-    const int SIZE = 20;
-    int numbers[SIZE];
+int main()
+{
+	const int places = 50;
+	int user_input;
 
-    srand(time(NULL));
 
-    for (int i = 0; i < SIZE; i++) {
-        numbers[i] = (rand() % 20) + 1;
-    }
+	do {
+		cout << "Enter how many passagers there will be: ";
+		cin >> user_input;
+	} while (user_input < 0);
 
-    bool printed = false;
+	int rest = user_input % places;
+	int free_space = places - rest;
 
-    for (int i = 0; i < SIZE; i++) {
-        if (numbers[i] % 2 == 0) {
-            if (printed) {
-                cout << ", ";
-            }
-            cout << numbers[i];
-            printed = true;
-        }
-    }
+	cout << free_space << endl;
 
-    cout << endl;
-
-    return 0;
+	return 0;
 }
