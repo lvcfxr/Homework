@@ -1,21 +1,30 @@
 #include <iostream>
-#include <algorithm>
+#include <ctime>
 using namespace std;
 
 int main() {
-    const int SIZE = 10;
-    int arr[SIZE]{ 1,3,4,7,2,9,6,8,10,16 };
-    int a = sizeof(arr) / sizeof(arr[0]);
+    const int SIZE = 20;
+    int numbers[SIZE];
 
-    sort(arr, arr + a);
+    srand(time(NULL));
+
+    for (int i = 0; i < SIZE; i++) {
+        numbers[i] = (rand() % 20) + 1;
+    }
+
+    bool printed = false;
+
+    for (int i = 0; i < SIZE; i++) {
+        if (numbers[i] % 2 == 0) {
+            if (printed) {
+                cout << ", ";
+            }
+            cout << numbers[i];
+            printed = true;
+        }
+    }
 
     cout << endl;
 
-    for (int i = 0; i < SIZE; i++) {
-        if ((i + 1) < SIZE)
-            cout << arr[i] << ", ";
-        else
-            cout << arr[i] << endl;
-    }
     return 0;
 }
