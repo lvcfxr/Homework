@@ -1,30 +1,21 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 int main() {
     const int SIZE = 10;
-    double arr[SIZE]{ 500,250,100,50,654,975,348,115,490,210 };
-    double sale;
+    int arr[SIZE]{ 1,3,4,7,2,9,6,8,10,16 };
+    int a = sizeof(arr) / sizeof(arr[0]);
 
-    do {
-        cout << "Enter sale percentage: ";
-        cin >> sale;
-    } while (sale < 0);
+    sort(arr, arr + a);
 
-    for (int i = 0; i < SIZE; i++) {
-        double temp = arr[i];
-        temp *= sale / 100;
-        arr[i] -= temp;
-    }
-
-    cout << "\nSale price: ";
+    cout << endl;
 
     for (int i = 0; i < SIZE; i++) {
-        if ((i + 1) < SIZE) 
+        if ((i + 1) < SIZE)
             cout << arr[i] << ", ";
         else
             cout << arr[i] << endl;
     }
-
     return 0;
 }
