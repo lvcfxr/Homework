@@ -2,30 +2,29 @@
 using namespace std;
 
 int main() {
-    int n;
+    const int SIZE = 10;
+    double arr[SIZE]{ 500,250,100,50,654,975,348,115,490,210 };
+    double sale;
 
     do {
-        cout << "Enter the initial number of boxes in the warehouse (n): ";
-        cin >> n;
-    } while (n < 0);
+        cout << "Enter sale percentage: ";
+        cin >> sale;
+    } while (sale < 0);
 
-    int cars = 0;
-
-    cout << "\n";
-
-    while (n > 0) {
-        int boxes_to_pick;
-
-        do {
-            cout << "Enter the number of boxes that the car will pick up (max " << n << "): ";
-            cin >> boxes_to_pick;
-        } while (boxes_to_pick > n || boxes_to_pick <= 0);
-
-        n -= boxes_to_pick;
-        cars++;
+    for (int i = 0; i < SIZE; i++) {
+        double temp = arr[i];
+        temp *= sale / 100;
+        arr[i] -= temp;
     }
 
-    cout << "\nThe number of cars that arrived at the warehouse: " << cars << endl;
+    cout << "\nSale price: ";
+
+    for (int i = 0; i < SIZE; i++) {
+        if ((i + 1) < SIZE) 
+            cout << arr[i] << ", ";
+        else
+            cout << arr[i] << endl;
+    }
 
     return 0;
 }
