@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <algorithm>
 using namespace std;
 
 int main()
@@ -6,28 +8,26 @@ int main()
 	const int SIZE = 10;
 	int arr[SIZE];
 
-	for (int i = 0; i < SIZE; i++) {
-
-		cout << "Enter number: ";
-		cin >> arr[i];
-
-	}
-
-	int max_n = arr[0];
-	int min_n = arr[0];
-
+	srand(time(NULL));
 
 	for (int i = 0; i < SIZE; i++) {
 
-		if (max_n < arr[i]) {
-			max_n = arr[i];
-		}
-		if (min_n > arr[i]) {
-			min_n = arr[i];
-		}
+		arr[i] = (rand() % 20) + 1;
+
 	}
 
-	cout << "\nmax number: " << max_n << "\nmin number: " << min_n << endl;
+	int* max_n = max_element(arr, arr + (size(arr)));
+	int* min_n = min_element(arr, arr + (size(arr)));
+
+
+	for (int i = 0; i < SIZE; i++) {
+		if ((i + 1) < SIZE)
+			cout << arr[i] << ", ";
+		else
+			cout << arr[i] << endl;
+	}
+
+	cout << "\nmax number: " << *max_n << "\nmin number: " << *min_n << endl;
 
 
 	return 0;
