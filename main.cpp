@@ -4,17 +4,28 @@
 
 using namespace std;
 
-int mySum(int a, int b) {
+void rectangle() {
 
-    return a + b;
+    const int x = 5;
+    const int y = 5;
+
+    char arr[x][y];
+
+    for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+            arr[i][j] = '*';
+            cout << arr[i][j] << ' ';
+        }
+        cout << "\n";
+    }
+
+
+    
 }
 
 int main()
 {
-    int sum = mySum(3,4);
-
-
-    cout << sum << endl;
+    rectangle();
 
     return 0;
 }
