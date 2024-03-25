@@ -1,34 +1,35 @@
 #include <iostream>
 #include <ctime>
-#include <algorithm>
+#include <cstdlib>
+
 using namespace std;
 
 int main()
 {
-	const int SIZE = 10;
-	int arr[SIZE];
+    const int row = 4;
+    const int column = 4;
 
-	srand(time(NULL));
+    int arr[row][column];
+    int maxRowSum = 0;
+    int maxRowIndex = 0;
 
-	for (int i = 0; i < SIZE; i++) {
+    srand(time(0));
 
-		arr[i] = (rand() % 20) + 1;
+    for (int i = 0; i < row; i++) {
+        int rowSum[column]{0};
+        for (int j = 0; j < column; j++) {
+            arr[i][j] = (rand() % 90) + 10;
+            cout << arr[i][j] << " ";
+            rowSum[i] += arr[i][j];
+        }
+        cout << "Row Sum: " << rowSum[i] << endl;
+        if (rowSum[i] > maxRowSum) {
+            maxRowSum = rowSum[i];
+            maxRowIndex = i;
+        }
+    }
 
-	}
+    cout << "Row with the maximum sum: " << maxRowIndex + 1 << endl;
 
-	int* max_n = max_element(arr, arr + (size(arr)));
-	int* min_n = min_element(arr, arr + (size(arr)));
-
-
-	for (int i = 0; i < SIZE; i++) {
-		if ((i + 1) < SIZE)
-			cout << arr[i] << ", ";
-		else
-			cout << arr[i] << endl;
-	}
-
-	cout << "\nmax number: " << *max_n << "\nmin number: " << *min_n << endl;
-
-
-	return 0;
+    return 0;
 }
