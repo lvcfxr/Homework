@@ -1,35 +1,39 @@
 #include <iostream>
 #include <ctime>
-#include <cstdlib>
+
 
 using namespace std;
 
 int main()
 {
-    const int row = 4;
-    const int column = 4;
+    const int size = 4;
 
-    int arr[row][column];
-    int maxRowSum = 0;
-    int maxRowIndex = 0;
+    int arr[size];
+    int user_input;
+
+    do {
+        cout << "Enter number(1 - 5): ";
+        cin >> user_input;
+    } while (user_input < 0 || user_input > 5);
+
 
     srand(time(0));
 
-    for (int i = 0; i < row; i++) {
-        int rowSum[column]{0};
-        for (int j = 0; j < column; j++) {
-            arr[i][j] = (rand() % 90) + 10;
-            cout << arr[i][j] << " ";
-            rowSum[i] += arr[i][j];
-        }
-        cout << "Row Sum: " << rowSum[i] << endl;
-        if (rowSum[i] > maxRowSum) {
-            maxRowSum = rowSum[i];
-            maxRowIndex = i;
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 5;
+        if (arr[i] == user_input) {
+            cout << "\narr[" << i << "] = " << arr[i];
         }
     }
 
-    cout << "Row with the maximum sum: " << maxRowIndex + 1 << endl;
+    cout << "\n\nArray - ";
+
+
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+
+    cout << "\n";
 
     return 0;
 }
