@@ -14,30 +14,19 @@ int main() {
     double sum = 0;
 
     for (int i = 0; i < size; i++) {
-        if (i == 0) {
+
+        if (i == 0)
             cout << "Enter company profit for " << i + 1 << "st month: ";
-            cin >> arr[i];
-            sum += arr[i];
-            cout << endl;
-        }
-        else if (i == 1) {
+        else if (i == 1) 
             cout << "Enter company profit for " << i + 1 << "nd month: ";
-            cin >> arr[i];
-            sum += arr[i];
-            cout << endl;
-        }
-        else if (i == 2) {
+        else if (i == 2)
             cout << "Enter company profit for " << i + 1 << "rd month: ";
-            cin >> arr[i];
-            sum += arr[i];
-            cout << endl;
-        }
-        else {
+        else
             cout << "Enter company profit for " << i + 1 << "th month: ";
-            cin >> arr[i];
-            sum += arr[i];
-            cout << endl;
-        }
+
+        cin >> arr[i];
+        sum += arr[i];
+        cout << endl;
     }
 
     cout << "General profit: " << sum << endl;
