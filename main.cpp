@@ -4,28 +4,53 @@
 
 using namespace std;
 
-void rectangle() {
 
-    const int x = 5;
-    const int y = 5;
+int main() {
 
-    char arr[x][y];
+    const int size = 6;
 
-    for (int i = 0; i < x; i++) {
-        for (int j = 0; j < y; j++) {
-            arr[i][j] = '*';
-            cout << arr[i][j] << ' ';
+    double arr[size];
+
+    double sum = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (i == 0) {
+            cout << "Enter company profit for " << i + 1 << "st month: ";
+            cin >> arr[i];
+            sum += arr[i];
+            cout << endl;
         }
-        cout << "\n";
+        else if (i == 1) {
+            cout << "Enter company profit for " << i + 1 << "nd month: ";
+            cin >> arr[i];
+            sum += arr[i];
+            cout << endl;
+        }
+        else if (i == 2) {
+            cout << "Enter company profit for " << i + 1 << "rd month: ";
+            cin >> arr[i];
+            sum += arr[i];
+            cout << endl;
+        }
+        else {
+            cout << "Enter company profit for " << i + 1 << "th month: ";
+            cin >> arr[i];
+            sum += arr[i];
+            cout << endl;
+        }
     }
 
+    cout << "General profit: " << sum << endl;
 
-    
-}
+    cout << "Profit for the last 6 month: ";
 
-int main()
-{
-    rectangle();
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " / ";
+
+    }
+
+    cout << "\n";
 
     return 0;
+
 }
