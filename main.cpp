@@ -1,39 +1,31 @@
 #include <iostream>
 #include <algorithm>
-
+#include <ctime>
+#include <cctype>
 using namespace std;
 
-void sortFirstTwoThirds(int arr[], int size) {
-    int sum = 0;
-    for (int i = 0; i < size; ++i) {
-        sum += arr[i];
-    }
 
-    if (sum / size > 0) {
-        int end = (size * 2) / 3;
-        sort(arr, arr + end);
-    }
-    else {
-        sort(arr, arr + size / 3);
-    }
+int const SIZE = 5;
 
-    reverse(arr + (size * 2) / 3, arr + size);
+
+void f(char arr[]) {
+    for (int i = 0; i < SIZE; i++) {
+        if (isupper(arr[i]))
+            arr[i] = tolower(arr[i]);
+    }
 }
 
-void printArray(int arr[], int size) {
-    for (int i = 0; i < size; ++i) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
 
 int main() {
-    int arr[] = { 3, -1, 5, 2, -4, 8, 0, -6 };
-    int size = sizeof(arr) / sizeof(arr[0]);
+    char arr[SIZE]{ 'H', 'E', 'L', 'L', 'O' };
+    
+    f(arr);
 
-    printArray(arr, size);
-    sortFirstTwoThirds(arr, size);
-    printArray(arr, size);
+    for (int i = 0; i < SIZE; i++) {
+        cout << arr[i];
+    }
+
+    cout << endl;
 
     return 0;
 }
