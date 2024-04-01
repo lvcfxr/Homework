@@ -1,19 +1,37 @@
 #include <iostream>
 #include <algorithm>
 #include <ctime>
-#include <cctype>
+#include <cstdlib>
 using namespace std;
 
-int findMax(int a, int b) {
-    return (a > b) ? a : b;
-}
+template <typename type>
+type arrSum(type arr[], int arrSize) {
+    type sum = 0;
 
-int findMax(int a, int b, int c) {
-    return (a > b && a > c) ? a : (b > c ? b : c);
+    for (int i = 0; i < arrSize; i++) {
+        sum += arr[i];
+    }
+    return sum;
 }
 
 int main() {
+    srand(time(0));
 
-    cout << findMax(10, 15, 20);
+    double arr[6];
+
+    for (int i = 0; i < 6; i++) {
+        arr[i] = rand() % 30;
+    }
+
+    for (int i = 0; i < 6; i++) {
+        cout << arr[i] << ' ';
+    }
+
+    cout << endl;
+
+    auto sum = arrSum(arr, 6);
+
+    cout << sum;
+
     return 0;
 }
