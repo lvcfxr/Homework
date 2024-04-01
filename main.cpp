@@ -4,28 +4,16 @@
 #include <cctype>
 using namespace std;
 
-
-int const SIZE = 5;
-
-
-void f(char arr[]) {
-    for (int i = 0; i < SIZE; i++) {
-        if (isupper(arr[i]))
-            arr[i] = tolower(arr[i]);
-    }
+int findMax(int a, int b) {
+    return (a > b) ? a : b;
 }
 
+int findMax(int a, int b, int c) {
+    return (a > b && a > c) ? a : (b > c ? b : c);
+}
 
 int main() {
-    char arr[SIZE]{ 'H', 'E', 'L', 'L', 'O' };
-    
-    f(arr);
 
-    for (int i = 0; i < SIZE; i++) {
-        cout << arr[i];
-    }
-
-    cout << endl;
-
+    cout << findMax(10, 15, 20);
     return 0;
 }
