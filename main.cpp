@@ -1,37 +1,40 @@
 #include <iostream>
 #include <algorithm>
 #include <ctime>
+#include <cmath>
 #include <cstdlib>
 using namespace std;
 
-template <typename type>
-type arrSum(type arr[], int arrSize) {
-    type sum = 0;
+int firstDigits(int n, int k) {
 
-    for (int i = 0; i < arrSize; i++) {
-        sum += arr[i];
+    int num = n;
+
+    while (num >= pow(10, k)) {
+        num /= 10;
     }
-    return sum;
+    return num;
 }
 
 int main() {
-    srand(time(0));
+    
+    int n;
+    int k;
+    
 
-    double arr[6];
+    
+    cout << "Enter number: ";
+    cin >> n;
 
-    for (int i = 0; i < 6; i++) {
-        arr[i] = rand() % 30;
-    }
+    cout << "Enter how many digits you want to see? ";
+    cin >> k;
 
-    for (int i = 0; i < 6; i++) {
-        cout << arr[i] << ' ';
-    }
+    
 
-    cout << endl;
 
-    auto sum = arrSum(arr, 6);
+    auto result = firstDigits(n, k);
 
-    cout << sum;
+    cout << result;
+    
 
     return 0;
 }
