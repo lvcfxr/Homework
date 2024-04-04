@@ -5,36 +5,37 @@
 #include <cstdlib>
 using namespace std;
 
-int firstDigits(int n, int k) {
+int arrSum(int arr[], int size) {
 
-    int num = n;
+    int sum = 0;
 
-    while (num >= pow(10, k)) {
-        num /= 10;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
     }
-    return num;
+
+    return sum;
 }
 
 int main() {
-    
-    int n;
-    int k;
-    
 
-    
-    cout << "Enter number: ";
-    cin >> n;
+    int const size = 10;
+    int arr[size];
 
-    cout << "Enter how many digits you want to see? ";
-    cin >> k;
+    srand(time(0));
 
-    
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 100;
+    }
 
+    cout << "Array: ";
 
-    auto result = firstDigits(n, k);
+    for (int i = 0; i < size; i++) {
+         cout << arr[i] << ' ';
+    }
 
-    cout << result;
-    
+    int sum = arrSum(arr, size);
+
+    cout << "\nArray sum: " << sum << endl;
 
     return 0;
 }
