@@ -5,37 +5,33 @@
 #include <cstdlib>
 using namespace std;
 
-int arrSum(int arr[], int size) {
-
-    int sum = 0;
-
-    for (int i = 0; i < size; i++) {
-        sum += arr[i];
-    }
-
-    return sum;
+template <typename T>
+void sortArray(T arr[], int size) {
+    sort(arr, arr + size);
 }
 
 int main() {
-
-    int const size = 10;
+    const int size = 10;
     int arr[size];
 
+    
     srand(time(0));
 
     for (int i = 0; i < size; i++) {
         arr[i] = rand() % 100;
     }
 
-    cout << "Array: ";
-
+    cout << "Unsorted Array: ";
     for (int i = 0; i < size; i++) {
-         cout << arr[i] << ' ';
+        cout << arr[i] << ' ';
     }
 
-    int sum = arrSum(arr, size);
+    sortArray(arr, size);
 
-    cout << "\nArray sum: " << sum << endl;
+    cout << "\nSorted Array: ";
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ' ';
+    }
 
     return 0;
 }
