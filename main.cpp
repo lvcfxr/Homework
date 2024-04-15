@@ -6,34 +6,40 @@
 using namespace std;
 
 
-int maxEl(int* arr, int size) {
+void reverseArray(int* arr, int size) {
+    int* start = arr;
+    int* end = arr + size - 1;
 
-    int maxEl = 0;
 
-    for (int i = 0; i < size; ++i) {
-        if (arr[i] > maxEl) {
-            maxEl = arr[i];
-        }
+    while (start < end) {
+       
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+
+
+        start++;
+        end--;
     }
-    return maxEl;
 }
 
 int main() {
-    const int size = 10;
-    int arr[size];
+    const int size = 5;
+    int arr[size] = { 1, 2, 3, 4, 5 };
 
-    srand(time(0));
-
+    cout << "Original array: ";
     for (int i = 0; i < size; i++) {
-        arr[i] = rand() % 100;
+        cout << arr[i] << " ";
     }
+    cout << endl;
 
+    reverseArray(arr, size);
+
+    cout << "Array in reverse order: ";
     for (int i = 0; i < size; i++) {
-        cout << arr[i] << ' ';
+        cout << arr[i] << " ";
     }
-
-    int max = maxEl(arr, size);
-    cout << "\nBiggest element in array: " << max << endl;
+    cout << endl;
 
     return 0;
 }
