@@ -5,41 +5,69 @@
 #include <cstdlib>
 using namespace std;
 
+bool isPrime(int number) {
 
-void reverseArray(int* arr, int size) {
-    int* start = arr;
-    int* end = arr + size - 1;
-
-
-    while (start < end) {
-       
-        int temp = *start;
-        *start = *end;
-        *end = temp;
-
-
-        start++;
-        end--;
+    for (int i = 2; i * i <= number; ++i) {
+        if (number % i == 0) {
+            return false;
+        }
     }
+
+    return number > 1;
+}
+
+int newarrSize;
+
+int* NonPrimaryNums(int* arr, int size) {
+
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (isPrime(arr[i])) {
+            count++;
+        }
+    }
+    
+    int* newarr = new int[count];
+
+    for (int i = 0, j = 0; i < size; i++) {
+        if (isPrime(arr[i])) {
+            newarr[j++] = arr[i];
+        }
+    }
+
+    newarrSize = count;
+
+    delete[] arr;
+
+    return newarr;
 }
 
 int main() {
-    const int size = 5;
-    int arr[size] = { 1, 2, 3, 4, 5 };
+    
+    int* ptr = nullptr, size;
 
-    cout << "Original array: ";
+    cout << "Enter size of array > ";
+    cin >> size;
+
+    ptr = new int[size];
+    
+    srand(time(0));
+
     for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
+        ptr[i] = rand() % 300;
+        cout << ptr[i] << ' ';
     }
     cout << endl;
 
-    reverseArray(arr, size);
+    ptr = NonPrimaryNums(ptr, size);
 
-    cout << "Array in reverse order: ";
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
+    if (ptr != nullptr) {
+        for (int i = 0; i < newarrSize; i++) {
+            cout << ptr[i] << ' ';
+        }
+        delete[] ptr;
     }
-    cout << endl;
-
+    
     return 0;
 }
