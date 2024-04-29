@@ -5,60 +5,66 @@
 #include <cstdlib>
 using namespace std;
 
-int maxEl(int *arr,int size) {
 
-    int maxel = 0;
 
-    for (int i = 0; i < size; i++) {
-        if (arr[i] > maxel) {
-            maxel = arr[i];
-        }
-    }
-
-    return maxel;
+void add(int* a, int* b, int* result) {
+    *result = *a + *b;
 }
 
-int minEl(int* arr, int size) {
+void subtract(int* a, int* b, int* result) {
+    *result = *a - *b;
+}
 
-    int minel = arr[0];
+void multiply(int* a, int* b, int* result) {
+    *result = *a * *b;
+}
 
-    for (int i = 0; i < size; i++) {
-        if (arr[i] < minel) {
-            minel = arr[i];
-        }
+void divide(int* a, int* b, float* result) {
+    if (*b != 0) {
+        *result = (float)(*a) / (*b);
     }
-    return minel;
+    else {
+        cout << "Error: Division by zero!" << endl;
+    }
 }
 
 int main() {
+    int num1, num2;
+    cout << "Enter the first number: ";
+    cin >> num1;
+    cout << "Enter the second number: ";
+    cin >> num2;
 
-    int* ptr = nullptr, size;
+    char operation;
+    cout << "Enter the operation (+, -, *, /): ";
+    cin >> operation;
 
-    cout << "Enter size of array > ";
-    cin >> size;
+    int result;
+    float float_result;
 
-    ptr = new int[size];
-
-    srand(time(0));
-
-    for (int i = 0; i < size; i++) {
-        ptr[i] = rand() % 300;
-        cout << ptr[i] << ' ';
+    switch (operation) {
+    case '+':
+        add(&num1, &num2, &result);
+        cout << "Result of addition: " << result << endl;
+        break;
+    case '-':
+        subtract(&num1, &num2, &result);
+        cout << "Result of subtraction: " << result << endl;
+        break;
+    case '*':
+        multiply(&num1, &num2, &result);
+        cout << "Result of multiplication: " << result << endl;
+        break;
+    case '/':
+        divide(&num1, &num2, &float_result);
+        if (num2 != 0) {
+            cout << "Result of division: " << float_result << endl;
+        }
+        break;
+    default:
+        cout << "Error: Invalid operation!" << endl;
+        break;
     }
-
-    cout << endl;
-
-    if (ptr != nullptr) {
-        auto maxel = maxEl(ptr, size);
-        auto minel = minEl(ptr, size);
-
-        cout << "Max element in array: " << maxel << "\nMin element in array: " << minel << endl;
-        delete[] ptr;
-    }
-    
-
-
-    
 
     return 0;
 }
