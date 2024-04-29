@@ -5,22 +5,19 @@
 #include <cstdlib>
 using namespace std;
 
-
-void reverseArray(int* arr, int size) {
+int* newReverseArray(int* arr, int size) {
+    int* newarr = new int[size];
     int* start = arr;
     int* end = arr + size - 1;
+    int* newStart = newarr;
 
-
-    while (start < end) {
-       
-        int temp = *start;
-        *start = *end;
-        *end = temp;
-
-
-        start++;
+    while (start <= end) {
+        *newStart = *end;
+        newStart++;
         end--;
     }
+
+    return newarr;
 }
 
 int main() {
@@ -33,13 +30,15 @@ int main() {
     }
     cout << endl;
 
-    reverseArray(arr, size);
+    int* newarr = newReverseArray(arr, size);
 
-    cout << "Array in reverse order: ";
+    cout << "New array in reverse order: ";
     for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
+        cout << newarr[i] << " ";
     }
     cout << endl;
+
+    delete[] newarr;
 
     return 0;
 }
