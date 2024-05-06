@@ -5,128 +5,64 @@
 #include <cstdlib>
 using namespace std;
 
-int pSize = 0;
-int nSize = 0;
-int zSize = 0;
+int newSize = 0;
 
+int* deleteElements(int* arr, int size) {
 
-int* pArr(int* arr, int size) {
     int count = 0;
 
-    for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] > 0) {
-            count++;
-        }
-
-    }
-    pSize = count;
-
-    int* pArr = new int[pSize];
-
-    for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] > 0) {
-            pArr[j] = arr[i];
-            j++;
-        }
-
-    }
-
-    return pArr;
-}
-
-int* nArr(int* arr, int size) {
-    int count = 0;
-
-    for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] < 0) {
+    for (int i = 0; i < size; i++){
+        if (arr[i] <= 0) {
             count++;
         }
     }
 
-    nSize = count;
+    newSize = count;
 
-    int* negArr = new int[nSize];
+    int* newArr = new int[newSize];
 
     for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] < 0) {
-            negArr[j] = arr[i];
+        if (arr[i] <= 0) {
+            newArr[j] = arr[i];
             j++;
         }
     }
 
-    return negArr;
-}
-
-int* zArr(int* arr, int size) {
-    int count = 0;
-
-    for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] == 0) {
-            count++;
-        }
-    }
-
-    zSize = count;
-    int* zeroArr = new int[zSize];
-
-    for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] == 0) {
-            zeroArr[j] = arr[i];
-            j++;
-        }
-    }
-
-
-    return zeroArr;
+    return newArr;
 }
 
 int main() {
-    const int size = 15;
-    int arr[size];
+    int size;
 
-    srand(time(0));
+    cout << "Enter how many elements will be in array: ";
+    cin >> size;
 
-    cout << "Original array: ";
+    if (size <= 0) {
+        cout << "\nSize equals 0" << endl;
+        return 0;
+    }
+
+    int* arr = new int[size];
+
     for (int i = 0; i < size; i++) {
-        arr[i] = (rand() % 201) - 100;
-        cout << arr[i] << " ";
+        cout << "Insert number in arr[" << i + 1 << "]: ";
+        cin >> arr[i];
     }
 
- 
+    int* newArr = deleteElements(arr, size);
 
-    int* posArr = pArr(arr, size);
-
-    cout << "\n\nPositive number arr: ";
-    for (int i = 0; i < pSize; i++) {
-        cout << posArr[i] << " ";
+    if (newSize != 0) {
+        cout << "\nNew array: ";
+        for (int i = 0; i < newSize; i++) {
+            cout << newArr[i] << ' ';
+        }
+    }
+    else {
+        cout << "\nNo elements less than or equal to 0." << endl;
     }
 
-    if (posArr != nullptr) {
-        delete[] posArr;
-    }
-
-    int* negArr = nArr(arr, size);
-
-    cout << "\nNegative number arr: ";
-    for (int i = 0; i < nSize; i++) {
-        cout << negArr[i] << " ";
-    }
-
-    if (negArr != nullptr) {
-        delete[] negArr;
-    }
-
-    int* zeroArr = zArr(arr, size);
-    cout << "\nZeroes: ";
-    for (int i = 0; i < zSize; i++) {
-    cout << zeroArr[i] << " ";
-    }
-
-    cout << endl;
-
-    if (zeroArr != nullptr) {
-        delete[] zeroArr;
-    }
+    if(newArr != nullptr)
+        delete[] newArr;
 
     return 0;
 }
