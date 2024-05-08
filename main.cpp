@@ -5,48 +5,51 @@
 #include <cstdlib>
 using namespace std;
 
-struct Car {
-    string brand;
-    string model;
-    int year;
+struct students {
+    string name;
+    string surname;
+    int age;
+    int avg;
 
     void displayInfo() {
-        cout << "Brand: " << brand << endl;
-        cout << "Model: " << model << endl;
-        cout << "Year: " << year << endl;
+        cout << "Name: " << name << endl;
+        cout << "Surname: " << surname << endl;
+        cout << "Age: " << age << endl;
+        cout << "Average grade: " << avg << endl;
     }
 
-    void findCarByYear(int tyear) {
-        if (year == tyear) {
-            cout << "=====================" << endl;
-            displayInfo();
-        }
-        else {
-            cout << "Car with year " << tyear << " not found." << endl;
-        }
-    }
+    
 };
 
 int main() {
 
-    Car cars[3] = {
-        {"Audi", "A4", 2020},
-        {"BMW", "X5", 2019},
-        {"Mercedes", "E-Class", 2018}
-    };
+    students* Student = new students[3];
 
     for (int i = 0; i < 3; ++i) {
-        cout << "Information about Car #" << i + 1 << ":" << endl;
-        cars[i].displayInfo();
-        cout << endl;
+        cout << "Student " << i + 1 << endl;
+
+        cout << "\nEnter students name > ";
+        cin >> Student[i].name;
+
+        cout << "Enter students surname > ";
+        cin >> Student[i].surname;
+
+        cout << "Enter students age > ";
+        cin >> Student[i].age;
+
+        cout << "Enter students average grade > ";
+        cin >> Student[i].avg;
+
+        cout << "======================" << endl;
     }
 
-    int userinput;
-
-    cout << "Enter a year > ";
-    cin >> userinput;
+    for (int i = 0; i < 3; i++) {
+        cout << "\nStudent " << i + 1 << endl;
+        Student[i].displayInfo();       
+    }
     
-    cars[0].findCarByYear(userinput);
+    if(Student != nullptr)
+        delete[] Student;
 
     return 0;
 }
