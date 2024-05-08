@@ -5,64 +5,48 @@
 #include <cstdlib>
 using namespace std;
 
-int newSize = 0;
+struct Car {
+    string brand;
+    string model;
+    int year;
 
-int* deleteElements(int* arr, int size) {
-
-    int count = 0;
-
-    for (int i = 0; i < size; i++){
-        if (arr[i] <= 0) {
-            count++;
-        }
+    void displayInfo() {
+        cout << "Brand: " << brand << endl;
+        cout << "Model: " << model << endl;
+        cout << "Year: " << year << endl;
     }
 
-    newSize = count;
-
-    int* newArr = new int[newSize];
-
-    for (int i = 0, j = 0; i < size; i++) {
-        if (arr[i] <= 0) {
-            newArr[j] = arr[i];
-            j++;
+    void findCarByYear(int tyear) {
+        if (year == tyear) {
+            cout << "=====================" << endl;
+            displayInfo();
+        }
+        else {
+            cout << "Car with year " << tyear << " not found." << endl;
         }
     }
-
-    return newArr;
-}
+};
 
 int main() {
-    int size;
 
-    cout << "Enter how many elements will be in array: ";
-    cin >> size;
+    Car cars[3] = {
+        {"Audi", "A4", 2020},
+        {"BMW", "X5", 2019},
+        {"Mercedes", "E-Class", 2018}
+    };
 
-    if (size <= 0) {
-        cout << "\nSize equals 0" << endl;
-        return 0;
+    for (int i = 0; i < 3; ++i) {
+        cout << "Information about Car #" << i + 1 << ":" << endl;
+        cars[i].displayInfo();
+        cout << endl;
     }
 
-    int* arr = new int[size];
+    int userinput;
 
-    for (int i = 0; i < size; i++) {
-        cout << "Insert number in arr[" << i + 1 << "]: ";
-        cin >> arr[i];
-    }
-
-    int* newArr = deleteElements(arr, size);
-
-    if (newSize != 0) {
-        cout << "\nNew array: ";
-        for (int i = 0; i < newSize; i++) {
-            cout << newArr[i] << ' ';
-        }
-    }
-    else {
-        cout << "\nNo elements less than or equal to 0." << endl;
-    }
-
-    if(newArr != nullptr)
-        delete[] newArr;
+    cout << "Enter a year > ";
+    cin >> userinput;
+    
+    cars[0].findCarByYear(userinput);
 
     return 0;
 }
