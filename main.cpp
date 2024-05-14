@@ -6,45 +6,163 @@
 using namespace std;
 
 
-class Numbers {
-private:
-    int m_a, m_b, m_c;
-
-public:
-    void setValue(int a, int b, int c) {
-        m_a = a;
-        m_b = b;
-        m_c = c;
-    };
-    void print() {
-        cout << m_a << ' ' << m_b << ' ' << m_c << endl;
+int** setMemory(int rows, int columns) {
+    if (rows <= 0 || columns <= 0) {
+        cout << "Size is too low!";
+        exit(EXIT_FAILURE);
     }
-    bool isEqual(Numbers& other) {
-        return (m_a == other.m_a && m_b == other.m_b && m_c == other.m_c);
-    }
-};
 
+    int** array = new int* [rows];
+    for (int i = 0; i < rows; i++) {
+        array[i] = new int[columns];
+    }
+
+    return array;
+}
+
+
+void freeMemory(int** array, int rows) {
+    for (int i = 0; i < rows; i++) {
+        delete[] array[i];
+    }
+    delete[] array;
+}
+
+
+void fillArr(int** array, int rows, int columns) {
+    srand(time(0));
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            array[i][j] = (rand() % 100) + 11;
+        }
+    }
+}
+
+
+void printArr(int** array, int rows, int columns) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            cout << array[i][j] << ' ';
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+
+int** addElement(int** array, int& rows, int& columns, int number) {
+    
+    int** newArray = new int* [rows];
+    for (int i = 0; i < rows; i++) {
+        newArray[i] = new int[columns + 1];
+        
+        for (int j = 0; j < columns; j++) {
+            newArray[i][j] = array[i][j];
+        }
+    }
+
+    
+    for (int i = 0; i < rows; i++) {
+        newArray[i][columns] = number;
+    }
+
+    
+    columns++;
+
+    
+    for (int i = 0; i < rows; i++) {
+        delete[] array[i];
+    }
+    delete[] array;
+
+    return newArray;
+}
+
+
+void insertElement(int** array, int rows, int columns) {
+    int row, column, number;
+
+    cout << "Enter number to insert: ";
+    cin >> number;
+
+    cout << "Enter row you want to insert your number: ";
+    cin >> row;
+
+    cout << "Enter column you want to insert your number: ";
+    cin >> column;
+
+    if (row < 1 || row > rows) {
+        cout << "Row is out of range!" << endl;
+        return;
+    }
+    if (column < 1 || column > columns) {
+        cout << "Column is out of range!" << endl;
+        return;
+    }
+
+    array[row - 1][column - 1] = number;
+}
+
+
+void deleteElement(int** array, int rows, int columns) {
+    int row, column;
+
+    cout << "Enter row you want to delete: ";
+    cin >> row;
+
+    cout << "Enter column you want to delete: ";
+    cin >> column;
+
+    if (row < 1 || row > rows) {
+        cout << "Row is out of range!" << endl;
+        return;
+    }
+    if (column < 1 || column > columns) {
+        cout << "Column is out of range!" << endl;
+        return;
+    }
+
+    array[row - 1][column - 1] = 0; 
+}
 
 int main() {
+    int row, column;
 
-    Numbers point1;
-    point1.setValue(3, 4, 5);
+    cout << "Enter rows: ";
+    cin >> row;
 
-    Numbers point2;
-    point2.setValue(3, 4, 5);
+    cout << "Enter columns: ";
+    cin >> column;
 
-    if (point1.isEqual(point2))
-        cout << "Classes are equal" << endl;
-    else
-        cout << "Classes are not equal" << endl;
+    
+    int** arr = setMemory(row, column);
+    if (arr == nullptr) {
+        return 1;
+    }
 
-    Numbers point3;
-    point3.setValue(7, 8, 9);
+    
+    fillArr(arr, row, column);
 
-    if (point1.isEqual(point3))
-        cout << "Classes are equal" << endl;
-    else
-        cout << "Classes are not equal" << endl;
+    
+    printArr(arr, row, column);
+
+    
+    int number;
+    cout << "Enter number to put at the end of array: ";
+    cin >> number;
+    arr = addElement(arr, row, column, number);
+    printArr(arr, row, column);
+
+    
+    insertElement(arr, row, column);
+    printArr(arr, row, column);
+
+    
+    deleteElement(arr, row, column);
+    printArr(arr, row, column);
+
+    
+    freeMemory(arr, row);
 
     return 0;
 }
