@@ -5,61 +5,46 @@
 #include <cstdlib>
 using namespace std;
 
-void reverseArray(int* arr, int size) {
-    int* start = arr;
-    int* end = arr + size - 1;
 
+class Numbers {
+private:
+    int m_a, m_b, m_c;
 
-    while (start < end) {
-
-        int temp = *start;
-        *start = *end;
-        *end = temp;
-
-
-        start++;
-        end--;
+public:
+    void setValue(int a, int b, int c) {
+        m_a = a;
+        m_b = b;
+        m_c = c;
+    };
+    void print() {
+        cout << m_a << ' ' << m_b << ' ' << m_c << endl;
     }
-}
-
-int main(){
-
-    int* arr = nullptr;
-    int size = 0;
-    int capacity = 0;
-    int num;
-
-    cout << "Enter numbers (enter 0 to exit):\n";
-    do {
-        cin >> num;
-        if (num != 0) {
-            if (size >= capacity) {
-                
-                capacity = (capacity == 0) ? 1 : capacity * 2;
-                int* temp = new int[capacity];
-                
-                for (int i = 0; i < size; ++i) {
-                    temp[i] = arr[i];
-                }
-                
-                delete[] arr;
-                arr = temp;
-            }
-            arr[size++] = num;
-        }
-    } while (num != 0);
-
-    reverseArray(arr, size);
-
-    cout << "Your array: ";
-
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
+    bool isEqual(Numbers& other) {
+        return (m_a == other.m_a && m_b == other.m_b && m_c == other.m_c);
     }
+};
 
-    cout << endl;
 
-    delete[] arr; 
+int main() {
+
+    Numbers point1;
+    point1.setValue(3, 4, 5);
+
+    Numbers point2;
+    point2.setValue(3, 4, 5);
+
+    if (point1.isEqual(point2))
+        cout << "Classes are equal" << endl;
+    else
+        cout << "Classes are not equal" << endl;
+
+    Numbers point3;
+    point3.setValue(7, 8, 9);
+
+    if (point1.isEqual(point3))
+        cout << "Classes are equal" << endl;
+    else
+        cout << "Classes are not equal" << endl;
 
     return 0;
 }
