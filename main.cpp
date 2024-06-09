@@ -1,36 +1,54 @@
 #include <iostream>
-#include <string>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
-class Zoo {
+class Array {
 private:
-
-    string gender;
-    string name;
-    int price;
-    int count;
-
+    int* data;
+    int size;
 public:
-    
-    Zoo() : gender("none"), name("no name"), price(0), count(0) {}
-
-    
-    Zoo(string g, string n, int p, int c) : gender(g), name(n), price(p), count(c) {}
-
-    
-    void print() {
-        cout << "gender : " << gender << "\nname : " << name << "\nprice : " << price << "\ncount : " << count << endl;
+    Array(int* arr, int n) : size(n) {
+        data = new int[n];
+        for (int i = 0; i < n; ++i) {
+            data[i] = arr[i];
+        }
     }
 
-    
-    ~Zoo() {}
+    ~Array() {
+        delete[] data;
+    }
 
+    friend int find_maximum(const Array& arr);
 };
 
-int main() {
+int find_maximum(const Array& arr) {
+    if (arr.size == 0) {
+        return -1;
+    }
+    int max_value = arr.data[0];
+    for (int i = 1; i < arr.size; ++i) {
+        if (arr.data[i] > max_value) {
+            max_value = arr.data[i];
+        }
+    }
+    return max_value;
+}
 
-    Zoo dog("male", "mike", 100, 2);
-    dog.print();
+int main() {
+    int values[10];
+
+    srand(time(0));
+
+    for (int i = 0; i < 10; i++) {
+        values[i] = rand() % 50;
+    }
+
+    int n = sizeof(values) / sizeof(values[0]);
+    Array arr(values, n);
+
+    cout << "Maximum value: " << find_maximum(arr) << endl;
 
     return 0;
 }
