@@ -4,51 +4,45 @@
 
 using namespace std;
 
-class Array {
+class Coordinates {
 private:
-    int* data;
-    int size;
+    int x;
+    int y;
+    int z;
 public:
-    Array(int* arr, int n) : size(n) {
-        data = new int[n];
-        for (int i = 0; i < n; ++i) {
-            data[i] = arr[i];
-        }
+    Coordinates() : x(0), y(0), z(0) {}
+
+    Coordinates(int x, int y, int z) : x(x), y(y), z(z) {}
+
+    Coordinates(const Coordinates& other) : x(other.x), y(other.y), z(other.z) {};
+
+    friend void operator<< (std::ostream& out, const Coordinates& other);
+
+    ~Coordinates() {
+
     }
 
-    ~Array() {
-        delete[] data;
-    }
-
-    friend int find_maximum(const Array& arr);
 };
 
-int find_maximum(const Array& arr) {
-    if (arr.size == 0) {
-        return -1;
-    }
-    int max_value = arr.data[0];
-    for (int i = 1; i < arr.size; ++i) {
-        if (arr.data[i] > max_value) {
-            max_value = arr.data[i];
-        }
-    }
-    return max_value;
+void operator<< (std::ostream& out, const Coordinates& other) {
+    out << "x: " << other.x << ' ' << "y: " << other.y << ' ' << "z: " << other.z << endl;
 }
 
 int main() {
-    int values[10];
 
-    srand(time(0));
+    Coordinates o1(1, 2, 3);
+    Coordinates o2(o1);
+    Coordinates o3 = o2;
+    Coordinates o4;
+    Coordinates o5(o4);
 
-    for (int i = 0; i < 10; i++) {
-        values[i] = rand() % 50;
-    }
 
-    int n = sizeof(values) / sizeof(values[0]);
-    Array arr(values, n);
+    cout << "first object\n" << o1;
+    cout << "second object\n" << o2;
+    cout << "third object\n" << o3;
+    cout << "fourth object\n" << o4;
+    cout << "fifth object\n" << o5;
 
-    cout << "Maximum value: " << find_maximum(arr) << endl;
 
     return 0;
 }
