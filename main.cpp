@@ -1,36 +1,82 @@
 #include <iostream>
-#include <string>
-using namespace std;
 
-class Zoo {
+class Fraction {
 private:
+    int numerator;
+    int denominator;
 
-    string gender;
-    string name;
-    int price;
-    int count;
-
-public:
-    
-    Zoo() : gender("none"), name("no name"), price(0), count(0) {}
-
-    
-    Zoo(string g, string n, int p, int c) : gender(g), name(n), price(p), count(c) {}
-
-    
-    void print() {
-        cout << "gender : " << gender << "\nname : " << name << "\nprice : " << price << "\ncount : " << count << endl;
+    void reduce() {
+        int common = (numerator < denominator ? numerator : denominator);
+        if (common < 0) common = -common;
+        while (common > 1) {
+            if (numerator % common == 0 && denominator % common == 0) {
+                numerator /= common;
+                denominator /= common;
+            }
+            common--;
+        }
+        if (denominator < 0) {
+            numerator = -numerator;
+            denominator = -denominator;
+        }
     }
 
-    
-    ~Zoo() {}
+public:
+    Fraction(int num, int den) : numerator(num), denominator(den) {
+        if (den == 0) {
+            std::cerr << "Denominator cannot be zero, setting to 1" << std::endl;
+            denominator = 1;
+        }
+        reduce();
+    }
 
+    Fraction operator+(const Fraction& other) const {
+        int num = numerator * other.denominator + other.numerator * denominator;
+        int den = denominator * other.denominator;
+        return Fraction(num, den);
+    }
+
+    Fraction operator-(const Fraction& other) const {
+        int num = numerator * other.denominator - other.numerator * denominator;
+        int den = denominator * other.denominator;
+        return Fraction(num, den);
+    }
+
+    Fraction operator*(const Fraction& other) const {
+        int num = numerator * other.numerator;
+        int den = denominator * other.denominator;
+        return Fraction(num, den);
+    }
+
+    Fraction operator/(const Fraction& other) const {
+        if (other.numerator == 0) {
+            std::cerr << "Cannot divide by zero, returning original fraction" << std::endl;
+            return *this;
+        }
+        int num = numerator * other.denominator;
+        int den = denominator * other.numerator;
+        return Fraction(num, den);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Fraction& fraction) {
+        os << fraction.numerator << "/" << fraction.denominator;
+        return os;
+    }
 };
 
 int main() {
+    Fraction a(1, 2);
+    Fraction b(3, 4);
 
-    Zoo dog("male", "mike", 100, 2);
-    dog.print();
+    Fraction result_add = a + b;
+    Fraction result_sub = a - b;
+    Fraction result_mul = a * b;
+    Fraction result_div = a / b;
+
+    std::cout << "a + b = " << result_add << std::endl;
+    std::cout << "a - b = " << result_sub << std::endl;
+    std::cout << "a * b = " << result_mul << std::endl;
+    std::cout << "a / b = " << result_div << std::endl;
 
     return 0;
 }
