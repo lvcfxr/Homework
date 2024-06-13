@@ -1,82 +1,52 @@
 #include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <string>
 
-class Fraction {
+using namespace std;
+
+class MyString {
+
 private:
-    int numerator;
-    int denominator;
-
-    void reduce() {
-        int common = (numerator < denominator ? numerator : denominator);
-        if (common < 0) common = -common;
-        while (common > 1) {
-            if (numerator % common == 0 && denominator % common == 0) {
-                numerator /= common;
-                denominator /= common;
-            }
-            common--;
-        }
-        if (denominator < 0) {
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-    }
-
+    string text;
+    
 public:
-    Fraction(int num, int den) : numerator(num), denominator(den) {
-        if (den == 0) {
-            std::cerr << "Denominator cannot be zero, setting to 1" << std::endl;
-            denominator = 1;
+    MyString() : text("") {  };
+
+    MyString(const string &text) : text(text) {  };
+
+    void operator()(int index = 0, int user_input = 0) {
+        int size = text.size();
+
+        if (user_input == 0) {
+            user_input = size;
         }
-        reduce();
-    }
-
-    Fraction operator+(const Fraction& other) const {
-        int num = numerator * other.denominator + other.numerator * denominator;
-        int den = denominator * other.denominator;
-        return Fraction(num, den);
-    }
-
-    Fraction operator-(const Fraction& other) const {
-        int num = numerator * other.denominator - other.numerator * denominator;
-        int den = denominator * other.denominator;
-        return Fraction(num, den);
-    }
-
-    Fraction operator*(const Fraction& other) const {
-        int num = numerator * other.numerator;
-        int den = denominator * other.denominator;
-        return Fraction(num, den);
-    }
-
-    Fraction operator/(const Fraction& other) const {
-        if (other.numerator == 0) {
-            std::cerr << "Cannot divide by zero, returning original fraction" << std::endl;
-            return *this;
+        
+        for (int i = index, j = 0; j < user_input; i++, j++) {
+            cout << text[i];
         }
-        int num = numerator * other.denominator;
-        int den = denominator * other.numerator;
-        return Fraction(num, den);
+        cout << endl;
+    }
+    
+    string add_elements(string el) {
+        text += el;
+        return text;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Fraction& fraction) {
-        os << fraction.numerator << "/" << fraction.denominator;
-        return os;
+    ~MyString() {
+
     }
 };
 
+
 int main() {
-    Fraction a(1, 2);
-    Fraction b(3, 4);
 
-    Fraction result_add = a + b;
-    Fraction result_sub = a - b;
-    Fraction result_mul = a * b;
-    Fraction result_div = a / b;
+    MyString string("Hello, world!");
+    string(7,6);
 
-    std::cout << "a + b = " << result_add << std::endl;
-    std::cout << "a - b = " << result_sub << std::endl;
-    std::cout << "a * b = " << result_mul << std::endl;
-    std::cout << "a / b = " << result_div << std::endl;
+    string.add_elements("()");
+    string(0, 0);
+
 
     return 0;
 }
