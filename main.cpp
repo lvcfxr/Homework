@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-const double PI = 3.14159265359;
+#define PI 3.14159265359
 
 using namespace std;
 
