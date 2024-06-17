@@ -1,71 +1,94 @@
 #include <iostream>
-#include <cmath>
-
-#define PI 3.14159265359
+#include <string>
 
 using namespace std;
 
-class Shape {
-public:
-    double area() const { return 0; }
-    double perimeter() const { return 0; }
-};
-
-class Circle : public Shape {
+class Str {
 private:
-    double radius;
+    string str;
+
 public:
-    Circle(double r) : radius(r) {}
+    Str() : str("") {}
 
-    double area() const {
-        return PI * radius * radius;
+    Str(string str) : str(str) {}
+
+    Str(const Str& other) : str(other.str) {}
+
+    Str& operator=(const Str& other) {
+        if (this != &other) {
+            str = other.str;
+        }
+        return *this;
     }
 
-    double perimeter() const {
-        return 2 * PI * radius;
+    int count_string() const {
+        return str.size();
     }
+
+    void clear() {
+        str.clear();
+    }
+
+    const string& get_str() const {
+        return str;
+    }
+
+    friend Str operator+(const Str& other, const string& user_input);
+    friend Str& operator+=(Str& other, const string& user_input);
+    friend bool operator==(const Str& other, const string& user_input);
+    friend bool operator!=(const Str& other, const string& user_input);
+
+    void print() const {
+        cout << str << endl;
+    }
+
+    ~Str() {}
 };
 
-class Rectangle : public Shape {
-private:
-    double width;
-    double height;
-public:
-    Rectangle(double w, double h) : width(w), height(h) {}
+Str operator+(const Str& other, const string& user_input) {
+    return Str(other.str + user_input);
+}
 
-    double area() const {
-        return width * height;
-    }
+Str& operator+=(Str& other, const string& user_input) {
+    other.str += user_input;
+    return other;
+}
 
-    double perimeter() const {
-        return 2 * (width + height);
-    }
-};
+bool operator==(const Str& other, const string& user_input) {
+    return other.str == user_input;
+}
 
-class Triangle : public Shape {
-private:
-    double a, b, c;
-public:
-    Triangle(double side1, double side2, double side3) : a(side1), b(side2), c(side3) {}
-
-    double area() const {
-        double s = (a + b + c) / 2;
-        return sqrt(s * (s - a) * (s - b) * (s - c));
-    }
-
-    double perimeter() const {
-        return a + b + c;
-    }
-};
+bool operator!=(const Str& other, const string& user_input) {
+    return !(other == user_input);
+}
 
 int main() {
-    Circle circle(5.0);
-    Rectangle rectangle(4.0, 6.0);
-    Triangle triangle(3.0, 4.0, 5.0);
+    Str o1("Hello");
+    Str o2("World");
+    Str o3;
 
-    cout << "Circle area: " << circle.area() << ", perimeter: " << circle.perimeter() << endl;
-    cout << "Rectangle area: " << rectangle.area() << ", perimeter: " << rectangle.perimeter() << endl;
-    cout << "Triangle area: " << triangle.area() << ", perimeter: " << triangle.perimeter() << endl;
+    o3 = o1;
+    o3.print();
+
+    
+    Str o4 = o1 + " " + o2.get_str(); 
+    o4.print();
+
+    o1 += " C++";
+    o1.print();
+
+    if (o1 == "Hello C++") {
+        cout << "o1 is equal to 'Hello C++'" << endl;
+    }
+
+    if (o1 != o2.get_str()) { 
+        cout << "o1 is not equal to o2" << endl;
+    }
+
+    cout << "Length of o1: " << o1.count_string() << endl;
+
+    o1.clear();
+    o1.print();
 
     return 0;
 }
