@@ -1,58 +1,53 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 int main() {
-    list<int> nums1(4, 0);
-    list<int> nums2(4, 0);
+    int elements;
+    cout << "Enter count of list elements: ";
+    cin >> elements;
 
-    
+    list<int> nums(elements, 0);
+
     srand(time(0));
 
-    for (auto it1 = nums1.begin(); it1 != nums1.end(); ++it1) {
-        *it1 = rand() % 100;
+    
+    for (auto it = nums.begin(); it != nums.end(); ++it) {
+        *it = rand() % 100;
     }
 
     
-    
-    for (auto it2 = nums2.begin(); it2 != nums2.end(); ++it2) {
-        *it2 = rand() % 100;
+    cout << "\nList elements: ";
+    for (auto it = nums.begin(); it != nums.end(); ++it) {
+        cout << *it << ' ';
     }
 
-    
-    cout << "\nFirst list: ";
-    for (auto it1 = nums1.begin(); it1 != nums1.end(); ++it1) {
-        cout << *it1 << ' ';
-    }
-    nums1.sort();
-    
-    cout << "\nSecond list: ";
-    for (auto it2 = nums2.begin(); it2 != nums2.end(); ++it2) {
-        cout << *it2 << ' ';
-    }
-    nums2.sort();
-    
-    cout << "\nFirst list after sort: ";
-    for (auto it1 = nums1.begin(); it1 != nums1.end(); ++it1) {
-        cout << *it1 << ' ';
-    }
+    int user_input;
+    cout << "\nChoose index to delete (0 to " << nums.size() - 1 << "): ";
+    cin >> user_input;
 
-    cout << "\nSecond list after sort: ";
-    for (auto it2 = nums2.begin(); it2 != nums2.end(); ++it2) {
-        cout << *it2 << ' ';
-    }
-
-    nums1.merge(nums2);
-    nums1.sort();
     
-    cout << "\nSorted list after merge: ";
-    for (auto it1 = nums1.begin(); it1 != nums1.end(); ++it1) {
-        cout << *it1 << ' ';
+    if (user_input >= nums.size()) {
+        cout << "Index out of range!" << endl;
     }
-    cout << endl;
+    else {
+        
+        auto it = nums.begin();
+        advance(it, user_input);
+
+        
+        nums.erase(it);
+
+        
+        cout << "List after deletion: ";
+        for (auto it = nums.begin(); it != nums.end(); ++it) {
+            cout << *it << ' ';
+        }
+    }
 
     return 0;
 }
