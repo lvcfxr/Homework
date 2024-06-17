@@ -21,7 +21,7 @@ public:
         return *this;
     }
 
-    int count_string() const {
+    int length() const {
         return str.size();
     }
 
@@ -29,18 +29,18 @@ public:
         str.clear();
     }
 
-    const string& get_str() const {
+    const string& strGet() const {
         return str;
+    }
+
+    void print() const {
+        cout << str << endl;
     }
 
     friend Str operator+(const Str& other, const string& user_input);
     friend Str& operator+=(Str& other, const string& user_input);
     friend bool operator==(const Str& other, const string& user_input);
     friend bool operator!=(const Str& other, const string& user_input);
-
-    void print() const {
-        cout << str << endl;
-    }
 
     ~Str() {}
 };
@@ -63,32 +63,31 @@ bool operator!=(const Str& other, const string& user_input) {
 }
 
 int main() {
-    Str o1("Hello");
-    Str o2("World");
-    Str o3;
+    Str s1("Hello");
+    Str s2("World");
+    Str s3;
 
-    o3 = o1;
-    o3.print();
+    s3 = s1;
+    s3.print();
 
-    
-    Str o4 = o1 + " " + o2.get_str(); 
-    o4.print();
+    Str s4 = s1 + " " + s2.strGet();
+    s4.print();
 
-    o1 += " C++";
-    o1.print();
+    s1 += " C++";
+    s1.print();
 
-    if (o1 == "Hello C++") {
-        cout << "o1 is equal to 'Hello C++'" << endl;
+    if (s1 == "Hello C++") {
+        cout << "s1 is equal to 'Hello C++'" << endl;
     }
 
-    if (o1 != o2.get_str()) { 
-        cout << "o1 is not equal to o2" << endl;
+    if (s1 != s2.strGet()) {
+        cout << "s1 is not equal to s2" << endl;
     }
 
-    cout << "Length of o1: " << o1.count_string() << endl;
+    cout << "Length of s1: " << s1.length() << endl;
 
-    o1.clear();
-    o1.print();
+    s1.clear();
+    s1.print();
 
     return 0;
 }
