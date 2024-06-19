@@ -1,53 +1,39 @@
 #include <iostream>
-#include <list>
 #include <algorithm>
-#include <cstdlib>
-#include <ctime>
+#include <vector>
+#include <iterator>
+#include <time.h>
+#include <list>
 
 using namespace std;
 
-int main() {
-    int elements;
-    cout << "Enter count of list elements: ";
-    cin >> elements;
 
-    list<int> nums(elements, 0);
-
-    srand(time(0));
+int main()
+{
+    vector<int> nums = { 1,2,3,4,5,6,7,8,9,10 };
 
     
-    for (auto it = nums.begin(); it != nums.end(); ++it) {
-        *it = rand() % 100;
-    }
+    cout << "\nvector: ";
 
-    
-    cout << "\nList elements: ";
-    for (auto it = nums.begin(); it != nums.end(); ++it) {
+    for (auto it = nums.begin(); it != nums.end(); it++) {
         cout << *it << ' ';
     }
 
-    int user_input;
-    cout << "\nChoose index to delete (0 to " << nums.size() - 1 << "): ";
-    cin >> user_input;
+    list<int> nums1 = { 1,2,3,4,5,6,7,8,9,10 };
 
+    cout << "\nlist: ";
+
+    for (auto it = nums1.rbegin(); it != nums1.rend(); ++it) {
+        cout << *it << ' ';
+    }
+
+    cout << "\nvector const iterator: ";
+
+    for (const auto& el : nums) {
+        cout << el << ' ';
+    }
     
-    if (user_input >= nums.size()) {
-        cout << "Index out of range!" << endl;
-    }
-    else {
-        
-        auto it = nums.begin();
-        advance(it, user_input);
-
-        
-        nums.erase(it);
-
-        
-        cout << "List after deletion: ";
-        for (auto it = nums.begin(); it != nums.end(); ++it) {
-            cout << *it << ' ';
-        }
-    }
+   
 
     return 0;
 }
