@@ -1,39 +1,32 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
-#include <iterator>
-#include <time.h>
-#include <list>
+#include <string>
 
 using namespace std;
 
-
-int main()
-{
-    vector<int> nums = { 1,2,3,4,5,6,7,8,9,10 };
-
-    
-    cout << "\nvector: ";
-
-    for (auto it = nums.begin(); it != nums.end(); it++) {
-        cout << *it << ' ';
+bool find_by_name(const string& user_input, const vector<string>& names) {
+    for (const string& el : names) {
+        if (user_input == el) {
+            return true;
+        }
     }
+    return false;
+}
 
-    list<int> nums1 = { 1,2,3,4,5,6,7,8,9,10 };
+int main() {
+    vector<string> names = { "Sasha", "Ivan", "John", "Orlando", "Leonardo", "Nina", "Anton", "Molly" };
 
-    cout << "\nlist: ";
+    string user_input;
 
-    for (auto it = nums1.rbegin(); it != nums1.rend(); ++it) {
-        cout << *it << ' ';
+    cout << "Enter a name: ";
+    cin >> user_input;
+
+    if (find_by_name(user_input, names)) {
+        cout << user_input << " was found." << endl;
     }
-
-    cout << "\nvector const iterator: ";
-
-    for (const auto& el : nums) {
-        cout << el << ' ';
+    else {
+        cout << user_input << " was not found." << endl;
     }
-    
-   
 
     return 0;
 }
