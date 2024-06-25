@@ -1,0 +1,9 @@
+Word		Frequency
+-------------------------
+bottom		1
+cool		1
+left		1
+привет		1
+слово		3
+
+Most frequent word: слово (3 times)
