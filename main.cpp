@@ -19,7 +19,7 @@ public:
     Topic bestTopic;
     int numberOfBooks;
 
-    Author(const std::string& firstName, const std::string& lastName, const Topic& bestTopic, int numberOfBooks)
+    Author(const std::string& firstName, const std::string& lastName, const Topic& bestTopic, int numberOfBooks) 
         : firstName(firstName), lastName(lastName), bestTopic(bestTopic), numberOfBooks(numberOfBooks) {}
 };
 
@@ -45,23 +45,23 @@ public:
     }
 
     void removeAuthor(const std::string& firstName, const std::string& lastName) {
-        authors.erase(std::remove_if(authors.begin(), authors.end(),
-            [&firstName, &lastName](const Author& author) {
+
+        authors.erase(std::remove_if(authors.begin(), authors.end(),[&firstName, &lastName](const Author& author)
+            {
                 return author.firstName == firstName && author.lastName == lastName;
             }), authors.end());
     }
 
     bool isAuthor(const std::string& firstName, const std::string& lastName) const {
-        return std::any_of(authors.begin(), authors.end(),
-            [&firstName, &lastName](const Author& author) {
+        return std::any_of(authors.begin(), authors.end(),[&firstName, &lastName](const Author& author)
+            {
                 return author.firstName == firstName && author.lastName == lastName;
             });
     }
 
     double averageNumberOfBooks() const {
-        if (authors.empty()) return 0.0;
-        int totalBooks = std::accumulate(authors.begin(), authors.end(), 0,
-            [](int sum, const Author& author) {
+
+        if (authors.empty()) return 0.0; int totalBooks = std::accumulate(authors.begin(), authors.end(), 0, [](int sum, const Author& author) {
                 return sum + author.numberOfBooks;
             });
         return static_cast<double>(totalBooks) / authors.size();
@@ -69,15 +69,14 @@ public:
 
     Author authorWithMaxBooks() const {
         if (authors.empty()) throw std::runtime_error("No authors in the book");
-        return *std::max_element(authors.begin(), authors.end(),
-            [](const Author& a, const Author& b) {
+
+        return *std::max_element(authors.begin(), authors.end(),[](const Author& a, const Author& b) {
                 return a.numberOfBooks < b.numberOfBooks;
             });
     }
 
     int countAuthorsWithBestMatchingTopic() const {
-        return std::count_if(authors.begin(), authors.end(),
-            [this](const Author& author) {
+        return std::count_if(authors.begin(), authors.end(),[this](const Author& author) {
                 return author.bestTopic.code == this->topic.code;
             });
     }
@@ -110,26 +109,38 @@ int main() {
         switch (choice) {
         case 1: {
             std::string firstName, lastName, topicCode, topicName;
+
             int numberOfBooks;
+
             std::cout << "Enter author's first name: ";
             std::cin >> firstName;
+
             std::cout << "Enter author's last name: ";
             std::cin >> lastName;
+
             std::cout << "Enter author's best topic code: ";
             std::cin >> topicCode;
+
             std::cout << "Enter author's best topic name: ";
             std::cin >> topicName;
+
             std::cout << "Enter number of books written by author: ";
             std::cin >> numberOfBooks;
+
             Topic authorTopic(topicCode, topicName);
+
             Author newAuthor(firstName, lastName, authorTopic, numberOfBooks);
+
             book.addAuthor(newAuthor);
+
             break;
         }
         case 2: {
             std::string firstName, lastName;
+
             std::cout << "Enter author's first name: ";
             std::cin >> firstName;
+
             std::cout << "Enter author's last name: ";
             std::cin >> lastName;
             book.removeAuthor(firstName, lastName);
@@ -137,22 +148,28 @@ int main() {
         }
         case 3: {
             std::string firstName, lastName;
+
             std::cout << "Enter author's first name: ";
             std::cin >> firstName;
+
             std::cout << "Enter author's last name: ";
             std::cin >> lastName;
+
             bool isAuthor = book.isAuthor(firstName, lastName);
+
             std::cout << (isAuthor ? "Yes" : "No") << ", this author wrote the book.\n";
             break;
         }
         case 4: {
             double avgBooks = book.averageNumberOfBooks();
+
             std::cout << "Average number of books written by authors: " << avgBooks << "\n";
             break;
         }
         case 5: {
             try {
                 Author maxBooksAuthor = book.authorWithMaxBooks();
+
                 std::cout << "Author with max books: " << maxBooksAuthor.firstName << " " << maxBooksAuthor.lastName << " (" << maxBooksAuthor.numberOfBooks << " books)\n";
             }
             catch (std::runtime_error& e) {
@@ -162,6 +179,7 @@ int main() {
         }
         case 6: {
             int count = book.countAuthorsWithBestMatchingTopic();
+
             std::cout << "Number of authors whose best topic matches the book's topic: " << count << "\n";
             break;
         }
