@@ -1,53 +1,56 @@
 #include <iostream>
+#include <string>
 
-
-class LightFigure {
-public:
-	virtual void draw() {
-		std::cout << ' ' << std::endl;
-	}
+struct vehicle {
+    int length;
+    int clearance;
+    int engine_vol;
+    int engine_pow;
+    int wheel_diameter;
+    std::string color;
+    std::string box_type;
 };
 
-class Point : public LightFigure {
-	void draw() override{
-		std::cout << '.' << std::endl;
-	}
-};
+void setVehicle(vehicle& v, int length, int clearance, int engine_vol, int engine_pow, int wheel_diameter, const std::string& color, const std::string& box_type) {
+    v.length = length;
+    v.clearance = clearance;
+    v.engine_vol = engine_vol;
+    v.engine_pow = engine_pow;
+    v.wheel_diameter = wheel_diameter;
+    v.color = color;
+    v.box_type = box_type;
+}
 
-class Line : public LightFigure {
-	void draw() override {
-		std::cout << '-' << std::endl;
-	}
-};
+void displayVehicle(const vehicle& v) {
+    std::cout << "Vehicle Details:" << std::endl;
+    std::cout << "Length: " << v.length << " mm" << std::endl;
+    std::cout << "Clearance: " << v.clearance << " mm" << std::endl;
+    std::cout << "Engine Volume: " << v.engine_vol << " cc" << std::endl;
+    std::cout << "Engine Power: " << v.engine_pow << " hp" << std::endl;
+    std::cout << "Wheel Diameter: " << v.wheel_diameter << " inches" << std::endl;
+    std::cout << "Color: " << v.color << std::endl;
+    std::cout << "Transmission: " << v.box_type << std::endl;
+}
 
-class Circle : public LightFigure {
-	void draw() override {
-		std::cout << '0' << std::endl;
-	}
-};
+int getLength(const vehicle& v) {
+    return v.length;
+}
 
-class Polygon : public LightFigure {
-	void draw() override{
-		std::cout << "<>" << std::endl;
-	}
-};
+std::string getColor(const vehicle& v) {
+    return v.color;
+}
 
 int main() {
-	LightFigure* point = new Point();
-	LightFigure* line = new Line();
-	LightFigure* circle = new Circle();
-	LightFigure* polygon = new Polygon();
+    vehicle myCar;
 
-	point->draw();
-	line->draw();
-	circle->draw();
-	polygon->draw();
+    setVehicle(myCar, 4500, 200, 2000, 150, 17, "Red", "Automatic");
+    displayVehicle(myCar);
 
-	
-	delete point;
-	delete line;
-	delete circle;
-	delete polygon;
+    int length = getLength(myCar);
+    std::cout << "Vehicle length: " << length << " mm" << std::endl;
 
-	return 0;
+    std::string color = getColor(myCar);
+    std::cout << "Vehicle color: " << color << std::endl;
+
+    return 0;
 }
