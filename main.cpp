@@ -1,24 +1,53 @@
 #include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <numeric>
-#include <list>
 
+
+class LightFigure {
+public:
+	virtual void draw() {
+		std::cout << ' ' << std::endl;
+	}
+};
+
+class Point : public LightFigure {
+	void draw() override{
+		std::cout << '.' << std::endl;
+	}
+};
+
+class Line : public LightFigure {
+	void draw() override {
+		std::cout << '-' << std::endl;
+	}
+};
+
+class Circle : public LightFigure {
+	void draw() override {
+		std::cout << '0' << std::endl;
+	}
+};
+
+class Polygon : public LightFigure {
+	void draw() override{
+		std::cout << "<>" << std::endl;
+	}
+};
 
 int main() {
- 
-    std::list<std::string> names = { "James", "Charles", "Frank", "Robert", "Alisa", "Rosa"};
+	LightFigure* point = new Point();
+	LightFigure* line = new Line();
+	LightFigure* circle = new Circle();
+	LightFigure* polygon = new Polygon();
 
-	char letter;
+	point->draw();
+	line->draw();
+	circle->draw();
+	polygon->draw();
 
-	std::cout << "Enter letter" << std::endl;
-	std::cin >> letter;
+	
+	delete point;
+	delete line;
+	delete circle;
+	delete polygon;
 
-	std::for_each(names.begin(), names.end(), [&letter](std::string name) {
-		if (std::tolower(name[0]) == std::tolower(letter))
-			std::cout << name << ' ';
-		});
-
-    return 0;
+	return 0;
 }
